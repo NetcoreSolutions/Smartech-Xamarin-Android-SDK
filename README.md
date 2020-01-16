@@ -4,11 +4,12 @@
 Smartech is a omni channel platform that delivers everything you need to drive mobile engagement and create valuable consumer relationships on mobile. The Smartech android SDK enables your native android app to use all of the features. This guide contains all the information you need to integrate the Smartech Android SDK into your app.
 
 ### Prerequisites
-##### 1. google-services.json file from [Firebase Console](https://console.firebase.google.com/)
-##### 2. Server Key​​ from ​Firebase Console
-##### 3. App Id from Smartech Panel
-**Note:** Minimum SDK version (minSdkVersion) available in the build.gradle file of the
-app should be at least 16 (Jelly Bean) or above.
+1.  A Smartech Account.
+2.  `google-services.json` file from [Firebase Console](https://console.firebase.google.com/)
+3.  Server Key​​ from ​Firebase Console.
+4.  A Smartech Android App Id which can be obtained from the Smartech panel.
+5.  Install or update Visual Studio to the latest version.
+6.  Ensure that the Android app targets API level 16 (Jelly Bean) or later and uses Gradle 4.1 or later.
 
 ###  Android Project:
 ##### 1. Create new Android project.
@@ -20,10 +21,9 @@ app should be at least 16 (Jelly Bean) or above.
 Install-Package GoogleGson -Version 2.8.5
 Install-Package Newtonsoft.Json -Version 12.0.2
 Install-Package Xamarin.GooglePlayServices.Ads -Version 60.1142.1
-Install-Package Xamarin.GooglePlayServices.Base -Version 60.1142.1
-Install-Package Xamarin.GooglePlayServices.Basement -Version 60.1142.1
-Install-Package Xamarin.GooglePlayServices.Tasks -Version 60.1142.1
+Install-Package Xamarin.GooglePlayServices.Base -Version 60.1142.1  
 Install-Package Xamarin.Firebase.Messaging -Version 60.1142.1
+Install-Package Xamarin.Android.Arch.Work.Runtime -Version 1.0.0
 ```
 
 **Note:​​**
