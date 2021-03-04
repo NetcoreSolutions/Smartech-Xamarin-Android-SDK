@@ -220,7 +220,7 @@ the user. ​**By default the method returns last 10 delivered notifications​�
 #### To implement push notifications in existing FCM class
 To use push notifications from Smartech panel along with custom set up of the FCM class, add given snippet ​**inside the FCM receiver class​​**.
 ```java
-bool pushFromSmartech = smartech.HandlePushNotification(p0.Data.MyToString());
+bool pushFromSmartech = smartech.HandlePushNotification(p0.Data.ToString());
 ```
 **Note​​:** The method returns a boolean value.
 
@@ -228,6 +228,20 @@ bool pushFromSmartech = smartech.HandlePushNotification(p0.Data.MyToString());
 
 - Return ​**false​**, if the push notification is not received from the Smartech panel. In this case, handle the push notification at your end as per the
 requirement.
+We also need to convert the IDictionary to String before passing it to the **HandlePushNotification** method. You can use below extension method to do that.
+```java
+public static string ToString<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
+{
+   if (dictionary == null)
+   throw new ArgumentNullException("dictionary");
+
+   var items = from data in dictionary
+   select data.Key + "=" + data.Value;
+   string result = "{ " + string.Join(", ", items) + " }";
+   return result;
+}
+```
+
 
 #### To opt out user from being tracked (GDPR Policy)
 If the end user wants to opt out of being tracked, add given snippet as per the
@@ -252,12 +266,6 @@ Android.Locations.Location location = new Android.Locations.Location("");
 location.Latitude = 19.185664;
 location.Longitude = 72.9808896;
 smartech.SetUserLocation(location);
-```
-#### To clear user identity
-In order to wipe out user identity from the SDK, add given snippet as per the
-requirement.
-```java
-NetcoreSDK.ClearIdentity(context);
 ```
 #### To set existing FCM token
 To set existing FCM token of the application to the SDK, add given snippet as per the requirement.
