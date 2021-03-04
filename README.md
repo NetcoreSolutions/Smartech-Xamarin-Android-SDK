@@ -19,12 +19,12 @@ Smartech is a omni channel platform that delivers everything you need to drive m
 
 ```java
 Install-Package GoogleGson -Version 2.8.5
-Install-Package Newtonsoft.Json -Version 12.0.2
-Install-Package Xamarin.GooglePlayServices.Ads -Version 60.1142.1
-Install-Package Xamarin.GooglePlayServices.Base -Version 60.1142.1  
-Install-Package Xamarin.Firebase.Messaging -Version 60.1142.1
-Install-Package Xamarin.Android.Arch.Work.Runtime -Version 1.0.0
-```
+Install-Package Newtonsoft.Json -Version 12.0.3
+Install-Package Xamarin.GooglePlayServices.Ads -Version 71.1720.1
+Install-Package Xamarin.GooglePlayServices.Base -Version 71.1610.0  
+Install-Package Xamarin.Firebase.Messaging -Version 71.1740.0
+Install-Package Xamarin.AndroidX.Work.Runtime -Version 2.5.0
+Install-Package Xamarin.Kotlin.StdLib.Jdk7 -Version 1.3.50.1
 
 **Note:​​**
 -   One can avoid using **‘com.google.android.gms:play-services-ads’**
