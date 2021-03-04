@@ -100,15 +100,15 @@ catch (Exception ex){}
 #### To change push notification icon color (From SDK version 1.2.8)
 To change the color of notification icon, add given snippet inside the **onCreate method of the Application class​​**.
 ```java
-NetcoreSDK.SetPushIconColor(context, <argb>);
+smartech.PushIconColor = <color>;
 
 e.g.
-NetcoreSDK.SetPushIconColor(context, ContextCompat.GetColor(this.BaseContext,Android.Resource.Color.HoloRedLight));
+smartech.PushIconColor = Android.Graphics.Color.Blue;
 ```
 #### To reset push notification icon color 
 To reset color of notification icon add given snippet as per the requirement.  
 ```java
-NetcoreSDK.ResetPushIconColor(context);
+smartech.ResetPushIconColor();
 ```
 
 #### To use custom push notification icon 
@@ -157,13 +157,34 @@ smtChannelBuilder.SetChannelGroupId("<Group_ID>");
 //To set sound to channel, add below method. (Note that sound name must be without extention.)
 smtChannelBuilder.SetNotificationSound("<Sound_File_Name_Without_Extenstion>");
 
-Smartech.getInstance(new WeakReference<Context>(context)).createNotificationChannel(smtChannelBuilder.build());
+smartech.CreateNotificationChannel(smtChannelBuilder.build());
 ```
 **Note:** For Notification importance, you can pass below levels.
+
 | Importance    | User-visible importance level |
 | ------------- | ------------- |
-| NotificationManager.IMPORTANCE_HIGH or NotificationManager.IMPORTANCE_MAX  | **Urgent** Makes a sound and appears as a heads-up notification  |
+| NotificationManager.IMPORTANCE_HIGH or NotificationManager.IMPORTANCE_MAX  | **Urgent** Makes a sound and appears as a heads-up notification  
+| NotificationManager.IMPORTANCE_DEFAULT | **High** <br> Makes a sound |
+| NotificationManager.IMPORTANCE_LOW | **Medium** <br> No Sound |
+| NotificationManager.IMPORTANCE_MIN | **Low** <br> No sound and does not appear in the status bar |
 
+#### Create a notification channel group
+The following snippet demonstrates how to create a notification channel group.
+```java
+smartech.createNotificationChannelGroup("<Group_ID>", "<Group_Name>");
+```
+
+#### Delete a notification channel
+You can delete notification channels by calling the following method.
+
+```java
+smartech.DeleteNotificationChannel("<Channel_ID>");
+```
+#### Delete a notification channel group
+You can delete notification channels group by calling the following method.
+```java
+smartech.DeleteNotificationChannelGroup("<Group_ID>");
+```
 
 #### To fetch delivered push notifications
 To fetch delivered push notifications, add given snippet as per the
