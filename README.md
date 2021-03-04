@@ -152,7 +152,7 @@ the user. ​**By default the method returns last 10 delivered notifications​�
 #### To implement push notifications in existing FCM class
 To use push notifications from Smartech panel along with custom set up of the FCM class, add given snippet ​**inside the FCM receiver class​​**.
 ```java
-boolean pushFromSmartech = NetcoreSDK.HandleNotification(context, remoteMessage.GetData());
+bool pushFromSmartech = smartech.HandlePushNotification(p0.Data.MyToString());
 ```
 **Note​​:** The method returns a boolean value.
 
@@ -164,7 +164,7 @@ requirement.
 If the end user wants to opt out of being tracked, add given snippet as per the
 requirement.
 ```java
-NetcoreSDK.OptOut(context, <boolean_flag>);
+smartech.OptOut(<boolean_flag>);
 ```
 **Note​​:** The method accepts a boolean value.
 
@@ -176,11 +176,14 @@ NetcoreSDK.OptOut(context, <boolean_flag>);
 In order to track user location and pass it further to Smartech, add given
 snippet as per the requirement.
 ```java
-NetcoreSDK.SetUserLocation(context, <double_lat>, <double_long>);
-```
-**Note:** The method mentioned above accepts 3 parameters including context, latitude & longitude. **Data type of ‘latitude’ & ‘longitude’ should be 'Double'**. In case if any parameter is null, SDK will not be
-able to persist user location.
+smartech.SetUserLocation(<obj_location>);
 
+e.g.
+Android.Locations.Location location = new Android.Locations.Location("");
+location.Latitude = 19.185664;
+location.Longitude = 72.9808896;
+smartech.SetUserLocation(location);
+```
 #### To clear user identity
 In order to wipe out user identity from the SDK, add given snippet as per the
 requirement.
@@ -190,20 +193,20 @@ NetcoreSDK.ClearIdentity(context);
 #### To set existing FCM token
 To set existing FCM token of the application to the SDK, add given snippet as per the requirement.
 ```java
-NetcoreSDK.SetPushToken(context, <token_string>);
+smartech.DevicePushToken = "<token>";
 
 e.g.
-NetcoreSDK.SetPushToken(context, "abc...xyz");
+smartech.DevicePushToken = "a34dcQAseweer";
 ```
 #### To get GUID of the user
 To obtain GUID of the user from the SDK, add given snippet as per the requirement.
 ```java
-String guid = NetcoreSDK.GetGUID(context);
+String guid = smartech.DeviceUniqueId;
 ```
 #### To get FCM token of the user
 To obtain the FCM token of the user from the SDK, add given snippet as per the requirement.
 ```java
-String token = NetcoreSDK.GetPushToken(context);
+String token = smartech.DevicePushToken;
 ```
 #### To implement deeplink in the application
 To implement deeplink in the application, add given snippet **inside AndroidManifest.xml file with in the Activity Tag**.
@@ -221,6 +224,33 @@ DataHost  =  "home.netcore.com",
 AutoVerify  =true,  
 Categories  =  new[]  {  Android.Content.Intent.CategoryDefault,  Android.Content.Intent.CategoryBrowsable  })]
 ```
+
+#### Handling Custom In-App HTML
+You must implement the InAppCustomtion HTMLListener and call smartech.setInAppCustomHTMLListener() method in your application class if you are using custom HTML in-app messages.
+```java
+[Application]
+    public class NetcoreApplication : Application,IInAppCustomHTMLListener
+    {
+        public NetcoreApplication(IntPtr handle, JniHandleOwnership ownerShip) : base(handle, ownerShip)
+        {
+        }
+
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            Smartech smartech = Smartech.GetInstance(new Java.Lang.Ref.WeakReference(ApplicationContext));
+            smartech.InitializeSdk(this);
+            smartech.SetInAppCustomHTMLListener(this);
+        }
+
+        public void CustomHTMLCallback(IDictionary<string, Java.Lang.Object> p0)
+        {
+            Console.WriteLine("InAppCustomListener" + p0.ToString());
+
+        }
+    }
+```
+
 #### To fetch Advertising Id
 To fetch Advertising Id using Smartech SDK of the device, add given snippet **in the AndroidManifest.xml file inside the application tag**.
 ```xml
