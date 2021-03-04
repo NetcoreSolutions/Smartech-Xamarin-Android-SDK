@@ -29,12 +29,25 @@ Install-Package Xamarin.Kotlin.StdLib.Jdk7 -Version 1.3.50.1
 **Note:​​**
 -   One can avoid using **‘com.google.android.gms:play-services-ads’**
 dependency if an app does not want Smartech to fetch Advertising Id of the device.
+```
 
-#### To register device for push notifications
-To register the device for receiving push notifications from Smartech panel​, add given snippet inside the **onCreate method of the Application class​​**.
+#### Initialize Smartech SDK
+First, you need to put your Smartech panel app Id in the meta-data tag of your application's manifest file.
+```xml
+<meta-data
+   android:name="SMT_APP_ID"
+   android:value="YOUR_SMARTECH_APP_ID_HERE" />
+```
+In the **onCreate() method of your Application Class** includes the code below. This code will initialize the Smartech SDK.
 ```java
 Smartech smartech = Smartech.GetInstance(new Java.Lang.Ref.WeakReference(ApplicationContext));
 smartech.InitializSdk(this);
+```
+#### Set Debug Level
+The Level class defines a set of standard logging levels that can be used to control logging output. Using the verbose you can see the all netcore logs in logcat. You can call this method above the Necore initialization.
+
+```java
+smartech.SetDebugLevel(NCLogger.Level.LogLevelVerbose);
 ```
 #### To capture user login
 To capture login activity of the user, add given snippet inside the
@@ -190,13 +203,20 @@ smartech.DeleteNotificationChannelGroup("<Group_ID>");
 To fetch delivered push notifications, add given snippet as per the
 requirement.
 ```java
-JSONArray notifications = NetcoreSDK.GetNotifications(context);
+var notifications = smartech.GetNotifications();
 OR
-JSONArray notifications = NetcoreSDK.GetNotifications(context, <count>);
+var notifications = smartech.GetNotifications(10);
+```
+#### To fetch unread push notification count
+To fetch unread push notification count from the NetcoreSDK, add given snippet as per the requirement.
+```java
+int count = smartech.GetUnreadNotificationsCount();
+```
+**Note​​:** The method returns the count of unread notifications only that has been received in the application via Smartech SDK. 
 ```
 **Note:** The method returns a ‘JSONArray’ of delivered push notifications for
 the user. ​**By default the method returns last 10 delivered notifications​​**.
-
+```
 #### To implement push notifications in existing FCM class
 To use push notifications from Smartech panel along with custom set up of the FCM class, add given snippet ​**inside the FCM receiver class​​**.
 ```java
@@ -208,6 +228,7 @@ bool pushFromSmartech = smartech.HandlePushNotification(p0.Data.MyToString());
 
 - Return ​**false​**, if the push notification is not received from the Smartech panel. In this case, handle the push notification at your end as per the
 requirement.
+
 #### To opt out user from being tracked (GDPR Policy)
 If the end user wants to opt out of being tracked, add given snippet as per the
 requirement.
@@ -330,11 +351,6 @@ Log.Debug("TAG",  key  +  " : "  +  bundle.Get(key).ToString());
 Toast.MakeText(this.BaseContext,  key  +  " : "  +  bundle.Get(key).ToString(),  ToastLength.Long).Show();  
 }
 ```
-#### To fetch unread push notification count
-To fetch unread push notification count from the NetcoreSDK, add given snippet as per the requirement.
-```java
-int count = NetcoreSDK.GetUnreadNotificationsCount(Context context);
-```
-**Note​​:** The method returns the count of unread notifications only that has been received in the application via Smartech SDK. 
+
 
 
