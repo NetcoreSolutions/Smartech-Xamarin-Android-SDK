@@ -137,6 +137,33 @@ drawable-xhdpi        :     48 x 48
 drawable-xxhdpi        :     72 x 72
 drawable-xxxhdpi    :     96 x 96
 ```
+### Notification Channel & Sound
+Smartech offers a feature to add custom sound that will be played when push notification is delivered. Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel. For each channel, you can set the visual and auditory behaviour that is applied to all notifications in that channel. Then, users can change these settings and decide which notification channels from your app should be intrusive or visible at all.
+
+#### Create a notification channel
+To create a notification channel, implement the following code:
+```java
+SMTNotificationChannel.Builder smtChannelBuilder = new SMTNotificationChannel.Builder(
+                "<Channel_ID>",
+                "<Channel_Name>",
+                <Notification_Importance>);
+
+//To set the description to the channel add below method. 
+smtChannelBuilder.SetChannelDescription("<Channel_Description>");
+
+//To set the group ID to the channel add below method. (Make sure that before setting group ID here, that group must be created before. Check the code below)
+smtChannelBuilder.SetChannelGroupId("<Group_ID>");
+
+//To set sound to channel, add below method. (Note that sound name must be without extention.)
+smtChannelBuilder.SetNotificationSound("<Sound_File_Name_Without_Extenstion>");
+
+Smartech.getInstance(new WeakReference<Context>(context)).createNotificationChannel(smtChannelBuilder.build());
+```
+**Note:** For Notification importance, you can pass below levels.
+| Importance    | User-visible importance level |
+| ------------- | ------------- |
+| NotificationManager.IMPORTANCE_HIGH or NotificationManager.IMPORTANCE_MAX  | **Urgent** Makes a sound and appears as a heads-up notification  |
+
 
 #### To fetch delivered push notifications
 To fetch delivered push notifications, add given snippet as per the
