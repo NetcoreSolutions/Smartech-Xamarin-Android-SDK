@@ -82,18 +82,18 @@ catch (Exception ex)
 To capture and map user attributes, add given snippet as per the
 requirement.
 ```java
-NetcoreSDK.Profile(context, <profile_object>);
+smartech.UpdateUserProfile(<user-data>);
 
 e.g. 
-JSONObject profile = new JSONObject();
-try {
-profile.Put("NAME", "John Doe");
-profile.Put("AGE", 35);
-profile.Put("MOBILE", 9876543210);
-NetcoreSDK.Profile(context, profile);
+try
+{
+ IDictionary<string, Java.Lang.Object> userData = new Dictionary<string, Java.Lang.Object>();
+ userData.Add("FIRST NAME", edtxtName.Text);
+ userData.Add("LAST NAME", edtxtLastName.Text);
+ userData.Add("AGE", edtxtAge.Text);
+ smartech.UpdateUserProfile(userData);
 }
-catch (JSONException e) {
-}
+catch (Exception ex){}
 ```
 **Note:** Use attribute name in capital letters as shown above.
 
