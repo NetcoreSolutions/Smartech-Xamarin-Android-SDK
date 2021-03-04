@@ -33,40 +33,48 @@ dependency if an app does not want Smartech to fetch Advertising Id of the devic
 #### To register device for push notifications
 To register the device for receiving push notifications from Smartech panel​, add given snippet inside the **onCreate method of the Application class​​**.
 ```java
-NetcoreSDK.Register(<application_context>, <app_id>);
+Smartech smartech = Smartech.GetInstance(new Java.Lang.Ref.WeakReference(ApplicationContext));
+smartech.InitializSdk(this);
 ```
 #### To capture user login
 To capture login activity of the user, add given snippet inside the
 activity when the user gets logged in successfully.
 ```java
-NetcoreSDK.SetIdentity(context, <unique_user_identity>);
-NetcoreSDK.Login(context);
+smartech.UserIdentity = "<unique_user_identity>";
+smartech.Login("<unique_user_identity>");
 ```
-#### To capture user logout
-To capture logout activity of the user, add given snippet inside the
-activity when the user gets logged out successfully.
+#### To clear user's identity
+To clear user's identity, call below method.
 ```java
-NetcoreSDK.Logout(context);
-NetcoreSDK.ClearIdentity(context);
+smartech.clearUserIdentity();
 ```
-**Note:​​** Avoid calling ‘clearIdentity’ method if one wants to track user activity
+
+#### To capture user logout
+Call the Smartech logout method after the user log-out from the application. If you want to clear the user identity pass true in the parameter. When you logout the user with identity clear, you won't be receiving any personalised push notifications.
+```java
+smartech.LogoutAndClearUserIdentity(true);
+```
+**Note:​​** Avoid passing true in  ‘LogoutAndClearUserIdentity’ method if one wants to track user activity
 even if user has logged out of the application.
+
 #### To capture custom activity
 To capture custom activity performed by the user, add given snippet as per
 the requirement.
 ```java
-NetcoreSDK.Track(context, <event_name>, payload.ToString());
+ smartech.TrackEvent("Page Browse", payload);
 
 e.g.
-JSONObject jsonObject = new JSONObject();
-JSONObject payload = new JSONObject();
-try {
-payload.Put("name", "Nexus 5");
-payload.Put("prid", 2);
-jsonObject.Put("payload", payload);
-NetcoreSDK.track(context, "Add To Cart", jsonObject.ToString());
+try
+{
+  IDictionary<string, Java.Lang.Object> payload = new Dictionary<string, Java.Lang.Object>();
+  payload.Add("name", "test");
+  payload.Add("prid", 2);
+  payload.Add("price", 15000.00);
+  smartech.TrackEvent("Page Browse", payload);
 }
-catch (JSONException e) {
+catch (Exception ex)
+{
+  Console.WriteLine(ex.Message);
 }
 ```
 **Note​​:** Prior implementation of custom activity tracking with event id will be also supported by the SDK.
