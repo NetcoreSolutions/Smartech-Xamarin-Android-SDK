@@ -13,7 +13,7 @@ Smartech is a omni channel platform that delivers everything you need to drive m
 
 ###  Android Project:
 ##### 1. Create new Android project.
-##### 2. Add Reference of Smartech.dll.
+##### 2. Add Reference of NetcoreXamarin.dll.
 ##### 3. Add google-services.json file in app directory of the project.
 ##### 4. Adding following Nuget Packages to android project.​
 
